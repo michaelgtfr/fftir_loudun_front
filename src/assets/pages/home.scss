@@ -1,0 +1,147 @@
+
+.menu_nav {
+    &__navbar {
+        &__brand {
+            color: $primaryColor !important;
+            font-family: $primaryPolice !important;
+            font-weight: bold;
+            font-size: 25px !important;
+        }
+    }
+}
+
+.header {
+    &__presentation {
+        &__image {
+            width: 100%;
+            height: 700px;
+            filter: brightness(95%);
+            z-index: 10;
+        }
+
+        &__block {
+            z-index: 100;
+            position: absolute;
+            top: 40%;
+        }
+
+        &__title {
+            h1 {
+                font-size: 50px;
+                text-align: center;
+                color: white;
+            }
+        }
+
+        &__subtitle {
+            font-size: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        &__button {
+            .btn-success {
+                background-color: $primaryColor !important;
+                border: $primaryColor !important;
+
+                &:hover {
+                    background-color: white !important;
+                    color:$primaryColor !important;
+                    border: $primaryColor!important;
+                }
+            }
+            .btn-outline-success {
+                background-color: white;
+                color: $primaryColor !important;
+                border: $primaryColor !important;
+
+                &:hover {
+                    background-color: $primaryColor !important;
+                    color: white !important;
+                }
+            }
+        }
+    }
+}
+
+.home-presentation {
+    font-size: 20px;
+    color: gray;
+}
+
+.discipline-presentation {
+    background-color: $primaryColor;
+
+    .card {
+        background-color: rgb(250, 246, 246);;
+    }
+
+    &__header {
+        background-color: white !important;
+    }
+
+    &__content {
+        background-color: white;
+        border-radius: 5% 0 0 5%;
+        font-size: 20px;
+        color: gray;
+
+        p {
+            text-align: start;
+        }
+    }
+
+    img {
+        border-radius: 5% 0 0 5%;
+    }
+}
+
+.card-presentation {
+    background-color: rgb(250, 246, 246);
+    color: gray;
+
+    h2 {
+        font-size: 50px;
+        font-family: $primaryPolice;
+    }
+
+    img {
+        height: 200px;
+        width: 100%;
+    }
+
+    h5 {
+        font-size: 30px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    a {
+        background-color:  $primaryColor;
+    }
+}
+
+.map {
+    // background-image: url('@/assets/img/stand_de_tir_saint_leger.jpg');
+    // background-position: center;
+    // background-size: 100%;
+    background-color: rgb(250, 246, 246);
+}
+
+.footer {
+    background-color: white;
+
+    img {
+        width: 40%;
+    }
+
+    &__first-column, &__third-column {
+        color: black;
+        font-size: 15px;
+
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}

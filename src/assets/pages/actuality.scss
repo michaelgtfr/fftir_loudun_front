@@ -1,0 +1,85 @@
+.block-actuality {
+    border: none;
+    background-color: rgba(245, 244, 244, 0.945);
+
+    h2 {
+        font-weight: bold;
+        font-family: Helvetica, sans-serif
+    }
+
+    &__last-actuality {
+        .actuality-card {
+            filter: brightness(95%);
+            &__block-text {
+                margin: auto;
+                position: absolute;
+                top: 75%;
+                z-index: 100;
+
+                span {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        h5, p {
+            color: white;
+        }
+    }
+
+    &__second-actuality {
+        &__block {
+            .actuality-card {
+                filter: brightness(95%);
+                &__block-text {
+                    margin: auto;
+                    position: absolute;
+                    top: 60%;
+                    z-index: 100;
+
+                    span {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            h5, p {
+                color: white;
+            }
+
+            img{
+                height: 50%;
+            }
+        }
+    }
+
+    &__old-actuality {
+        background-color: white;
+
+        h2 {
+            font-weight: bold;
+            font-family: Helvetica, sans-serif
+        }
+
+        img {
+            border-radius: 2%;
+        }
+
+        ul {
+            list-style: none;
+        }
+    }
+
+    &__actuality-of-club {
+        background-color: white;
+
+        h2 {
+            font-weight: bold;
+            font-family: Helvetica, sans-serif
+        }
+
+        img {
+            border-radius: 2%;
+        }
+    }
+}

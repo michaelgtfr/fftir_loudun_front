@@ -1,0 +1,15 @@
+//base folder
+@import './bases/base.css';
+@import './bases/policy.scss';
+@import './bases/_variables.scss';
+
+//pages folder
+@import './pages/home.scss';
+@import './pages/contact.scss';
+@import './pages/login.scss';
+@import './pages/actuality.scss';
+@import './pages/actualityForm.scss';
+@import './pages/detailArticle.scss';
+@import './pages/article.scss';
+@import './pages/tagList.scss';
+@import './pages/userProfile.scss'

@@ -1,0 +1,17 @@
+.contact-form {
+    background-color: $primaryColor;
+
+    &__form {
+        background-color: rgb(245, 245, 245);
+        border-radius: 5px;
+
+        label {
+            font-weight: bold;
+        }
+
+        &__button button{
+            background-color: #09b794;
+            font-size: large;
+        }
+    }
+}

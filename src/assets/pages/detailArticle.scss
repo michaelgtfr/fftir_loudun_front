@@ -1,0 +1,9 @@
+.detail-article {
+    &__title h2 {
+        font-size: 50px;
+    }
+
+    &__picture img{
+        max-height: 600px;
+    }
+}

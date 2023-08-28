@@ -1,0 +1,17 @@
+.login-form {
+    background-color: $primaryColor;
+    min-height: 600px;
+
+    &__message {
+        font-size: 20px;
+    }
+
+    &__form {
+        background-color: white;
+
+        &__button button{
+            background-color: $primaryColor;
+            font-size: large;
+        }
+    }
+}

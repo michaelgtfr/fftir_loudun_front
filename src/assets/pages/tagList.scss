@@ -1,0 +1,9 @@
+.list-tags {
+    background-color: rgba(245, 244, 244, 0.945);
+    &__header {
+        td {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.detail-article {
+    background-color: rgba(245, 244, 244, 0.945);
+    &__chapo p {
+        font-weight: bold !important;
+        font-size: 1.2rem;
+        font-family: Helvetica, sans-serif;
+    }
+
+    &__content p {
+        font-size: 1.2rem;
+        font-family: Helvetica, sans-serif;
+    }
+}

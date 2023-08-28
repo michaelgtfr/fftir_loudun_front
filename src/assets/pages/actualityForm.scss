@@ -1,0 +1,25 @@
+.actuality-form {
+    background-color: $primaryColor;
+
+    &__form {
+        background-color: rgb(245, 245, 245);
+        border-radius: 5px;
+
+        label {
+            font-weight: bold;
+        }
+
+        &__button {
+            &__submit {
+                background-color: $primaryColor !important;
+            }
+
+            &__preview {
+                background-color: yellow !important;
+            }
+            button {
+                font-size: large;
+            }
+        }
+    }
+}
