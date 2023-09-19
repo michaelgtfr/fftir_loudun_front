@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 import { BootstrapVue3 } from 'bootstrap-vue-3'
 import './assets/main.scss'
@@ -24,8 +26,12 @@ const app = createApp(App)
 
 app.use(router)
 app.use(store)
+app.use(VueAxios, axios)
 // Make BootstrapVue available throughout your project
 app.use(BootstrapVue3)
+
 app.component("font-awesome-icon", FontAwesomeIcon)
+
+app.provide('axios', app.config.globalProperties.axios)  // provide 'axios'
 
 app.mount('#app')

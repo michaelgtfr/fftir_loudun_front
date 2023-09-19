@@ -1,26 +1,23 @@
 <template>
     <!-- Presentation association -->
-    <div class="row home-presentation">
-        <p class="home-presentation__text col-lg-8 offset-lg-2 mt-5 mb-5">Situé dans le départmeent de la Vienne(86), Nous sommes une association permettant dans deux stands avec infrastructure prévue à cette effet,
-            de pratiqué plusieurs sport lié au tir avec arme que ce soit au plomb ou à balle réelle du calibre 4.5mm au 308 win sur des distance de 10m à 75m
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-            </p>
+    <div v-if="showPresentation" class="row home-presentation">
+        <p class="home-presentation__text col-lg-8 offset-lg-2 mt-5 mb-5">{{ getpersonalizedContent('presentation') }}</p>
     </div>
 
-    <!--presentation of discipline-->
-    <div class="discipline-presentation row p-5">
+    <!--Presentation of discipline-->
+    <div v-if="showDisciplines" class="discipline-presentation row p-5">
         <div class="col-lg-8 offset-lg-2">
             <div class="card text-center">
                 <div class="card-header discipline-presentation__header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item" v-for="discipline, index in disciplines" :key="index">
-                            <a :class="dynamiqueStyleOfDisciplineLink(discipline.title)" @click="selectedDiscipline(discipline.title)">{{ discipline.title }}</a>
+                            <a :class="dynamiqueStyleOfDisciplineLink(discipline.id)" @click="selectedDiscipline(discipline.id)">{{ discipline.discipline }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="row border m-2 discipline-presentation__content">
-                    <img class="col-lg-3 p-0" :src="disciplineSelected.img" alt="image of discipline"/>
-                    <p class="col-lg-9">{{ disciplineSelected.text }}</p>
+                    <img class="col-lg-3 p-0" :src="urlDisciplineImg" alt="image of discipline"/>
+                    <p class="col-lg-9">{{ disciplineSelected.presentation }}</p>
                 </div>
             </div>
         </div>
@@ -40,10 +37,10 @@
                     <!-- horaire d'ouverture -->
                     <div class="col-lg-12 mt-4">
                         <h5 class="m-4">Horaire d'ouverture</h5>
-                        <ul v-for="day, index in weekSaintLeger" :key="index">
+                        <ul v-for="day, index in  getSchreduleByShootingRange(SAINT_LEGER)" :key="index">
                             <li class="row">
-                                <p class="col-lg-6">{{ day.day }}</p>
-                                <p class="col-lg-6">{{ day.open }}</p>
+                                <p class="col-lg-6">{{ dateFormat(day.date) }}</p>
+                                <p class="col-lg-6">{{ timeFormat(day.startTime) }} - {{ timeFormat(day.endTime) }}</p>
                             </li>
                         </ul>
                     </div>
@@ -58,10 +55,10 @@
                     <!-- horaire d'ouverture -->
                     <div class="col-lg-12 mt-4">
                         <h5 class="m-4">Horaire d'ouverture</h5>
-                        <ul v-for="day, index in weekSaintLeger" :key="index">
+                        <ul v-for="day, index in getSchreduleByShootingRange(LOUDUN)" :key="index">
                             <li class="row">
-                                <p class="col-lg-6">{{ day.day }}</p>
-                                <p class="col-lg-6">{{ day.open }}</p>
+                                <p class="col-lg-6">{{dateFormat(day.date) }}</p>
+                                <p class="col-lg-6">{{ timeFormat(day.startTime) }} - {{ timeFormat(day.endTime) }}</p>
                             </li>
                         </ul>
                     </div>
@@ -72,52 +69,129 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script>
+import axios from "axios"
 import imageFirstCard from "../../src/assets/img/stand_de_tir_saint_leger.jpg"
 import imageSecondCard from "../../src/assets/img/stand_de_tir_saint_leger.jpg"
-import benchRest from "@/assets/img/bench-rest.jpeg"
-import { ref } from "vue"
+import { SAINT_LEGER, LOUDUN } from "@/constant/appConstant"
 
-const disciplines = ref([
-                {
-                    title: `22hunter à 50m`,
-                    text: `Le Hunter est une discipline qui se pratique à 50 mètres avec une carabine .22lr. L'arme est posée sur des supports et équipée d'une lunette. L'objectif est de totaliser le maximum de points en additionnant le total des 25 cibles.`,
-                    img: benchRest
-                },
-                {
-                    title: `tir rapide`,
-                    text: `tir rapide `,
-                    img: benchRest
-                },
-                {
-                    title: `carabine 50m`,
-                    text: `carabine 50m`,
-                    img: benchRest
-                }
-            ])
-
-const disciplineSelected = ref(disciplines.value[0])
-
-const weekSaintLeger = ref([
-    { day: `dimanche 1`, open: true },
-    { day: `dimanche 8`, open: true },
-    { day: `dimanche 15`, open: true },
-    { day: `dimanche 17`, open: true }
-])
-
-function selectedDiscipline(title: string) {
-  const selected = disciplines.value.find((discipline) => discipline.title === title);
-  if (selected) {
-    disciplineSelected.value = selected;
-  }
-}
-
-function dynamiqueStyleOfDisciplineLink(title: string) {
-            if (disciplineSelected.value.title === title) {
+export default ({
+    data() {
+        return {
+            SAINT_LEGER,
+            LOUDUN,
+            imageFirstCard,
+            imageSecondCard,
+            disciplines: [],
+            disciplineSelected: {},
+            schredules: [],
+            showDisciplines: false,
+            personalizedPage: null,
+            showPresentation: false,
+            file: {}
+        }
+    },
+    created() {
+        this.getShowsShootingsDisciplines()
+        this.getShowsShredules()
+        this.getPersonnalizedPage()
+    },
+    computed: {
+        /**
+         * URL to the images of the discipline part
+         */
+        urlDisciplineImg()
+        {
+            return `${import.meta.env.VITE_BASE_IMG_URL}/uploads/disciplineImg/${this.disciplineSelected.disciplinePicture}`
+        }
+    },
+    methods: {
+        /**
+         * Retrieve the list of disciplines
+         */
+        getShowsShootingsDisciplines() {
+            axios
+                .get(`${import.meta.env.VITE_API_URL}/showsShootingsDisciplines`)
+                .then((response) => {
+                    this.disciplines = response.data.data
+                    this.disciplineSelected = this.disciplines[0]
+                    this.showDisciplines = true
+                });
+        },
+        /**
+         * Retrieve the schredules of club
+         */
+         getShowsShredules() {
+            axios
+                .get(`${import.meta.env.VITE_API_URL}/showsSchredules`)
+                .then((response) => {
+                    this.schredules = response.data.data
+                });
+        },
+        /**
+         * Retrieve the list of personalized content
+         */
+         getPersonnalizedPage() {
+            axios
+                .get(`${import.meta.env.VITE_API_URL}/personalizedPageContent/homepage`)
+                .then((response) => {
+                    this.personalizedPage = response.data.data
+                    this.showPresentation = true
+                });
+        },
+        /**
+         * Displays the chosen discipline
+         * @param {integer} id 
+         */
+        selectedDiscipline(id) {
+            const selected = this.disciplines.find((discipline) => discipline.id === id);
+            if (selected) {
+                this.disciplineSelected = selected;
+            }
+        },
+        /**
+         * Add a style to the chosen discipline
+         * @param {integer} id 
+         */
+        dynamiqueStyleOfDisciplineLink(id) {
+            if (this.disciplineSelected.id === id) {
                 return `nav-link active`
             }
             return `nav-link`
+        },
+        /**
+         * Gives the schedule by shooting range
+         * @param {string} shootingRange 
+         */
+        getSchreduleByShootingRange(shootingRange) {
+            return this.schredules.filter((schredules) => schredules.shootingRange === shootingRange)
+        },
+        /**
+         * Provides the requested personalized content
+         * @param {string} subpart 
+         */
+        getpersonalizedContent(subpart) {
+            return this.personalizedPage.find((content) => content.subpart == subpart).content
+        },
+        /**
+         * Sets up a format for dates
+         * @param {string} date 
+         */
+        dateFormat(date) {
+            return new Date(date).toLocaleDateString("fr")
+        },
+        /**
+         * Sets up a format for the time
+         * @param {string} datetime 
+         */
+        timeFormat(datetime) {
+            const date = new Date(datetime);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
         }
+    }
+})
 </script>
 
 <style lang="scss">
