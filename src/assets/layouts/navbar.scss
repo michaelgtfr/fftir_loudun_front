@@ -1,0 +1,14 @@
+.menu_nav {
+  &__navbar {
+    &__brand {
+      color: $primaryColor !important;
+      font-family: $primaryPolice !important;
+      font-weight: bold;
+      font-size: 25px !important;
+    }
+
+    .nav-item {
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.modal {
+  .modal-header {
+    background-color: $primaryColor;
+  }
+
+  .btn-primary {
+    background-color: $primaryColor;
+    border: none;
+  }
+
+  .btn-secondary {
+    background-color: white;
+    color: $primaryColor;
+    border: 1px solid $primaryColor;
+  }
+}

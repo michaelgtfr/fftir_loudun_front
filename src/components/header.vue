@@ -1,10 +1,9 @@
 <template>
     <div class="header__presentation row ">
-      <img class="header__presentation__image" :src="imageHeader" />
       <div class="header__presentation__block">
         <!-- title-->
         <div class="header__presentation__title">
-          <h1>Club de Tir du Pays Loudunais</h1>
+          <h1>WClub de Tir du Pays Loudunais</h1>
         </div>
         <!-- subtitle -->
         <div class="header__presentation__subtitle">
@@ -18,9 +17,5 @@
       </div>
     </div>
 </template>
-
-<script setup>
-import imageHeader from "../../src/assets/img/stand_de_tir_saint_leger.jpg"
-</script>
 
 

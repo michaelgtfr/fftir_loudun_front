@@ -7,7 +7,7 @@ import ActualityView from '@/views/ActualityView.vue'
 import CreateActualityView from '@/views/CreateActualityView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import TagView from '@/views/TagView.vue'
-import CRUDDayOpenShootingRangeVue from '@/views/CRUDDayOpenShootingRange.vue'
+import OpenShootingRangeVue from '@/views/OpenShootingRangeView.vue'
 
 /**
  * Update also the navbar file
@@ -31,35 +31,35 @@ const router = createRouter({
       component: ContactView
     },
     {
-        path:'/dashboard',
-        name: 'dashboard',
-        component: DashboardView
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView
     },
     {
-        path:'/actuality',
-        name: 'actuality',
-        component: ActualityView
+      path: '/actuality',
+      name: 'actuality',
+      component: ActualityView
     },
     {
-        path:'/createArticle',
-        name: 'createArticle',
-        component: CreateActualityView
+      path: '/createArticle',
+      name: 'createArticle',
+      component: CreateActualityView
     },
     {
-        path:'/article',
-        name: 'article',
-        component: ArticleView
+      path: '/article',
+      name: 'article',
+      component: ArticleView
     },
     {
-        path:'/tag',
-        name: 'tag',
-        component: TagView
+      path: '/tag',
+      name: 'tag',
+      component: TagView
     },
     {
-        path:'/openShootingRange',
-        name: 'openShootingRange',
-        component: CRUDDayOpenShootingRangeVue
-    },
+      path: '/openShootingRange',
+      name: 'openShootingRange',
+      component: OpenShootingRangeVue
+    }
   ]
 })
 

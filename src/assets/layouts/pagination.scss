@@ -1,0 +1,13 @@
+.block-pagination {
+    padding: 5px;
+
+    .pagination {
+        --bs-pagination-active-bg: $primaryColor !important;
+        --bs-pagination-active-color: white !important;
+        --bs-pagination-active-border-color: white;
+    }
+    .page-link {
+        margin: 0;
+    }
+
+}

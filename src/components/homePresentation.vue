@@ -34,16 +34,6 @@
                         <h5 class="m-4">Saint Leger</h5>
                         <p>Stand de tir exterieur sur la commune de Saint-Leger, pas de tir allant jusqu'à 75m, calibre jusqu'au 7.62 ou équivalent.</p>
                     </div>
-                    <!-- horaire d'ouverture -->
-                    <div class="col-lg-12 mt-4">
-                        <h5 class="m-4">Horaire d'ouverture</h5>
-                        <ul v-for="day, index in  getSchreduleByShootingRange(SAINT_LEGER)" :key="index">
-                            <li class="row">
-                                <p class="col-lg-6">{{ dateFormat(day.date) }}</p>
-                                <p class="col-lg-6">{{ timeFormat(day.startTime) }} - {{ timeFormat(day.endTime) }}</p>
-                            </li>
-                        </ul>
-                    </div>
                     <a href="#" class="btn mt-4">Voir plus d'information</a>
                 </div>
                 <div class="col-lg-5 text-center p-4">
@@ -51,16 +41,6 @@
                     <div class="card-presentation__block-text">
                         <h5 class="m-4">Loudun</h5>
                         <p>Stand de tir interieur sur Loudun. pas de tir 10m, au plomb, carabine et arme de poing.</p>
-                    </div>
-                    <!-- horaire d'ouverture -->
-                    <div class="col-lg-12 mt-4">
-                        <h5 class="m-4">Horaire d'ouverture</h5>
-                        <ul v-for="day, index in getSchreduleByShootingRange(LOUDUN)" :key="index">
-                            <li class="row">
-                                <p class="col-lg-6">{{dateFormat(day.date) }}</p>
-                                <p class="col-lg-6">{{ timeFormat(day.startTime) }} - {{ timeFormat(day.endTime) }}</p>
-                            </li>
-                        </ul>
                     </div>
                     <a href="#" class="btn mt-4">Voir plus d'information</a>
                 </div>
@@ -84,7 +64,6 @@ export default ({
             imageSecondCard,
             disciplines: [],
             disciplineSelected: {},
-            schredules: [],
             showDisciplines: false,
             personalizedPage: null,
             showPresentation: false,
@@ -93,7 +72,6 @@ export default ({
     },
     created() {
         this.getShowsShootingsDisciplines()
-        this.getShowsShredules()
         this.getPersonnalizedPage()
     },
     computed: {
@@ -116,16 +94,6 @@ export default ({
                     this.disciplines = response.data.data
                     this.disciplineSelected = this.disciplines[0]
                     this.showDisciplines = true
-                });
-        },
-        /**
-         * Retrieve the schredules of club
-         */
-         getShowsShredules() {
-            axios
-                .get(`${import.meta.env.VITE_API_URL}/showsSchredules`)
-                .then((response) => {
-                    this.schredules = response.data.data
                 });
         },
         /**
@@ -160,36 +128,12 @@ export default ({
             return `nav-link`
         },
         /**
-         * Gives the schedule by shooting range
-         * @param {string} shootingRange 
-         */
-        getSchreduleByShootingRange(shootingRange) {
-            return this.schredules.filter((schredules) => schredules.shootingRange === shootingRange)
-        },
-        /**
          * Provides the requested personalized content
          * @param {string} subpart 
          */
         getpersonalizedContent(subpart) {
             return this.personalizedPage.find((content) => content.subpart == subpart).content
         },
-        /**
-         * Sets up a format for dates
-         * @param {string} date 
-         */
-        dateFormat(date) {
-            return new Date(date).toLocaleDateString("fr")
-        },
-        /**
-         * Sets up a format for the time
-         * @param {string} datetime 
-         */
-        timeFormat(datetime) {
-            const date = new Date(datetime);
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            return `${hours}:${minutes}`;
-        }
     }
 })
 </script>

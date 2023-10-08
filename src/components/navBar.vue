@@ -4,7 +4,7 @@
       <div class="menu_nav__navbar">
         <b-navbar>
             <b-navbar-brand to="/" class="menu_nav__navbar__brand">
-                <img width="70" :src="imageNav" alt="Logo">CTPL
+                CTPL
             </b-navbar-brand>
 
           <b-collapse class="d-flex">

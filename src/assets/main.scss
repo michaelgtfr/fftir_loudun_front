@@ -11,5 +11,13 @@
 @import './pages/actualityForm.scss';
 @import './pages/detailArticle.scss';
 @import './pages/article.scss';
-@import './pages/tagList.scss';
-@import './pages/userProfile.scss'
+@import './pages/userProfile.scss';
+@import './pages/tagView.scss';
+
+//layouts
+@import './layouts/calendar.scss';
+@import './layouts/header.scss';
+@import './layouts/navbar.scss';
+@import './layouts/dynamicTable.scss';
+@import './layouts/pagination.scss';
+@import './layouts/modal.scss';
