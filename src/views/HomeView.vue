@@ -41,7 +41,7 @@ export default {
      * Retrieve the schredules of club
      */
     getShowsShredules() {
-      axios.get(`${import.meta.env.VITE_API_URL}/showsSchredules`).then((response) => {
+      axios.get(`${import.meta.env.VITE_API_URL}/schredules`).then((response) => {
         this.schredules = this.formatSchredules(response.data.data)
       })
     },

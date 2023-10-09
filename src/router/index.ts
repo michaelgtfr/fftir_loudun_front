@@ -7,7 +7,7 @@ import ActualityView from '@/views/ActualityView.vue'
 import CreateActualityView from '@/views/CreateActualityView.vue'
 import ArticleView from '@/views/ArticleView.vue'
 import TagView from '@/views/TagView.vue'
-import OpenShootingRangeVue from '@/views/OpenShootingRangeView.vue'
+import Schredule from '@/views/SchreduleView.vue'
 
 /**
  * Update also the navbar file
@@ -56,9 +56,9 @@ const router = createRouter({
       component: TagView
     },
     {
-      path: '/openShootingRange',
-      name: 'openShootingRange',
-      component: OpenShootingRangeVue
+      path: '/schredule',
+      name: 'schredule',
+      component: Schredule
     }
   ]
 })

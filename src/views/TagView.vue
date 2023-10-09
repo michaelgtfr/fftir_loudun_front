@@ -21,81 +21,82 @@
       </DynamicTable>
 
       <!-- Pagination part -->
-      <div class="tag-page__pagination-and-modal container-fluid justify-content d-flex">
+      <div class="tag-page__pagination-and-modal container-fluid">
         <Pagination
-          class="col-lg-9"
+          class="col-lg-12"
           :pageDisplay="page"
           :number-total-of-items="totalItem"
           @page-selected="pageSelected"
         />
+      </div>
 
-        <!-- Modal part -->
-        <Modal
-          class="col-lg-3"
-          :title-for-creation-or-update="titleForCreationOrUpdate"
-          @open-modal="createTag"
-          @save="saveTag"
-        >
-          <!-- slot: input for tag -->
-          <div class="row">
-            <div v-if="errorValidationForm" class="alert alert-danger" role="alert">
-              {{ errorValidationForm.message }}
+      <!-- Modal part -->
+      <Modal
+        class="col-lg-12"
+        :title-for-creation-or-update="titleForCreationOrUpdate"
+        @open-modal="createTag"
+        @save="saveTag"
+      >
+        <!-- slot: input for tag -->
+        <div class="row">
+          <!-- general message -->
+          <div v-if="errorValidationForm" class="alert alert-danger" role="alert">
+            {{ errorValidationForm.message }}
+          </div>
+          <div class="col-lg-6 p-2">
+            <label for="tagNameInput" class="form-label">Nom du tag</label>
+            <input
+              :class="getInputStyle('name')"
+              class="form-control"
+              id="tagNameInput"
+              v-model="form.name"
+            />
+            <div v-if="showValidationForm" class="invalid-feedback">
+              {{ getError('name') }}
             </div>
-            <div class="col-lg-6 p-2">
-              <label for="tagNameInput" class="form-label">Nom du tag</label>
-              <input
-                :class="getInputStyle('name')"
-                class="form-control"
-                id="tagNameInput"
-                v-model="form.name"
-              />
-              <div v-if="showValidationForm" class="invalid-feedback">
-                {{ getError('name') }}
-              </div>
+          </div>
+          <div class="col-lg-6 p-2">
+            <label for="tagStyleBackgroundColorInput" class="form-label col-lg-12"
+              >Couleur du fond</label
+            >
+            <input
+              class="col-lg-12"
+              type="color"
+              id="tagStyleBackgroundColorInput"
+              v-model="form.style.backgroundColor"
+            />
+          </div>
+          <div class="col-lg-6 p-2">
+            <label for="tagPresentationInput" class="form-label">Presentation du tag</label>
+            <textarea
+              class="form-control"
+              :class="getInputStyle('presentation')"
+              id="tagPresentationInput"
+              v-model="form.presentation"
+              placeholder="Ecrivez votre message ici"
+              :rows="10"
+            ></textarea>
+            <div class="invalid-feedback">
+              {{ getError('presentation') }}
             </div>
-            <div class="col-lg-6 p-2">
-              <label for="tagStyleBackgroundColorInput" class="form-label col-lg-12"
-                >Couleur du fond</label
-              >
-              <input
-                class="col-lg-12"
-                type="color"
-                id="tagStyleBackgroundColorInput"
-                v-model="form.style.backgroundColor"
-              />
-            </div>
-            <div class="col-lg-6 p-2">
-              <label for="tagPresentationInput" class="form-label">Presentation du tag</label>
-              <textarea
-                class="form-control"
-                :class="getInputStyle('presentation')"
-                id="tagPresentationInput"
-                v-model="form.presentation"
-                placeholder="Ecrivez votre message ici"
-                :rows="10"
-              ></textarea>
-              <div class="invalid-feedback">
-                {{ getError('presentation') }}
-              </div>
-            </div>
-            <div class="col-lg-6 p-2">
-              <label for="tagStyleColorInput" class="form-label col-lg-12">Couleur écriture</label>
-              <input
-                class="col-lg-12"
-                type="color"
-                id="tagStyleColorInput"
-                v-model="form.style.color"
-              />
-              <div class="row">
-                <span class="test-center p-2 col-lg-12">Representation du tag</span>
-                <div>
-                  <button :style="form.style" class="badge btn-sm">{{ form.name }}</button>
-                </div>
+          </div>
+          <div class="col-lg-6 p-2">
+            <label for="tagStyleColorInput" class="form-label col-lg-12">Couleur écriture</label>
+            <input
+              class="col-lg-12"
+              type="color"
+              id="tagStyleColorInput"
+              v-model="form.style.color"
+            />
+            <div class="row">
+              <span class="test-center p-2 col-lg-12">Representation du tag</span>
+              <div>
+                <button :style="form.style" class="badge btn-sm">{{ form.name }}</button>
               </div>
             </div>
           </div>
-        </Modal>
-      </div>
+        </div>
+      </Modal>
     </div>
   </main>
 </template>
@@ -104,10 +105,12 @@
 import DynamicTable from '@/components/dynamicTable.vue'
 import Pagination from '@/components/pagination.vue'
 import Modal from '@/components/modal.vue'
+import { modalMixin } from '@/mixins/modalMixin'
 import axios from 'axios'
 
 export default {
   name: `tagView`,
+  mixins: [modalMixin],
   data() {
     return {
       tagList: [],
@@ -162,13 +165,6 @@ export default {
         })
     },
     /**
-     * Page requested
-     * @param {integer} page
-     */
-    pageSelected(page) {
-      this.page = page
-    },
-    /**
      * Saves the tag, if it has an id it sends a modification otherwise it sends a creation
      */
     async saveTag() {
@@ -220,43 +216,6 @@ export default {
         .catch((error) => {
           this.$emit('flash-message', error)
         })
-    },
-    /**
-     * Close the modal of bootstrap display
-     */
-    closeModal() {
-      this.errorValidationForm = null
-
-      document.getElementById('Modal').style.display = 'none'
-      document.getElementsByClassName('modal-open')[0].style = {}
-      document.getElementsByClassName('modal-open')[0].className = ''
-      document.getElementsByClassName('modal-backdrop')[0].remove()
-    },
-    /**
-     * Send errors message per component
-     * @param {string} component
-     */
-    getError(component) {
-      if (this.errorValidationForm?.error) {
-        return this.errorValidationForm.error.find((error) => error.field === component)?.message
-      }
-      return ''
-    },
-    /**
-     * Gives a class specific to whether it has an error message or not
-     * @param {string} component
-     */
-    getInputStyle(component) {
-      if (this.showValidationForm) {
-        const errorFormTheComponent = this.errorValidationForm?.error.find(
-          (error) => error.field === component
-        )
-
-        if (errorFormTheComponent) {
-          return 'is-invalid'
-        }
-        return 'is-valid'
-      }
     },
     /**
      * Set the default value before display the create tag modal
