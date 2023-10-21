@@ -3,8 +3,8 @@
     <HeaderApp />
     <HomePresentation />
 
-    <div class="row">
-      <h2>Planning du club</h2>
+    <div class="home-calendar row">
+      <h2 class="col-lg-12 text-center">Planning du club</h2>
       <Calendar :items="schredules" />
     </div>
     <LeafletMap />

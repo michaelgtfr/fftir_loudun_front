@@ -1,0 +1,29 @@
+.footer {
+  background-color: black;
+
+  &__title {
+    color: white;
+    font-weight: bold;
+  }
+
+  &__icon {
+    i {
+      color: white;
+      background-color: $primaryColor;
+      margin: 2px;
+      border-radius: 30px;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+
+      svg {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &__presentation {
+    color: white;
+    font-style: italic;
+  }
+}

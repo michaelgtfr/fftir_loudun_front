@@ -1,5 +1,9 @@
 .tag-page {
-    &__pagination-and-modal {
-        background-color: $primaryColor;
-    }
+  background: linear-gradient(rgba(45, 103, 60, 0.8), rgba(45, 103, 60, 0.8)),
+    url('@/assets/img/stand_de_tir_saint_leger.jpg');
+  background-size: cover;
+
+  &__pagination-and-modal {
+    background-color: #333333;
+  }
 }

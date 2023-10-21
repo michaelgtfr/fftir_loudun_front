@@ -1,25 +1,53 @@
 .actuality-form {
-    background-color: $primaryColor;
+  background: linear-gradient(rgba(45, 103, 60, 0.8), rgba(45, 103, 60, 0.8)),
+    url('@/assets/img/stand_de_tir_saint_leger.jpg');
+  background-size: cover;
 
-    &__form {
-        background-color: rgb(245, 245, 245);
-        border-radius: 5px;
+  h2 {
+    font-size: 2rem;
+    font-family: $primaryPolice;
+    color: gray;
+  }
 
-        label {
-            font-weight: bold;
-        }
+  &__form {
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
 
-        &__button {
-            &__submit {
-                background-color: $primaryColor !important;
-            }
+    .input-form {
+      padding: 10px;
 
-            &__preview {
-                background-color: yellow !important;
-            }
-            button {
-                font-size: large;
-            }
-        }
+      label {
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+      }
     }
+
+    &__button {
+      &__submit {
+        background-color: $primaryColor !important;
+        color: white !important;
+
+        &:hover {
+          color: white !important;
+          background-color: orange !important;
+          border: orange !important;
+        }
+      }
+
+      &__preview {
+        color: $primaryColor !important;
+        border: 1px solid $primaryColor !important;
+        background-color: white !important;
+
+        &:hover {
+          color: white !important;
+          background-color: orange !important;
+          border: orange !important;
+        }
+      }
+      button {
+        font-size: large;
+      }
+    }
+  }
 }

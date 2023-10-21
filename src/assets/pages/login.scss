@@ -1,17 +1,22 @@
 .login-form {
-    background-color: $primaryColor;
-    min-height: 600px;
+  min-height: 600px;
+  background: linear-gradient(rgba(45, 103, 60, 0.8), rgba(45, 103, 60, 0.8)),
+    url('@/assets/img/stand_de_tir_saint_leger.jpg');
+  background-size: cover;
 
-    &__message {
-        font-size: 20px;
+  &__message {
+    color: white;
+    font-size: 20px;
+    font-style: italic;
+  }
+
+  &__form {
+    background-color: white;
+    border-radius: 10px;
+
+    &__button button {
+      background-color: $primaryColor;
+      font-size: large;
     }
-
-    &__form {
-        background-color: white;
-
-        &__button button{
-            background-color: $primaryColor;
-            font-size: large;
-        }
-    }
+  }
 }

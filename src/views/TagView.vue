@@ -1,12 +1,13 @@
 <template>
   <main>
-    <div class="tag-page container-fluid">
+    <div class="tag-page container-fluid pt-2">
       <!-- Table part -->
       <DynamicTable
         :headers="tagHeaders"
         :lines="tagList"
         :title="titleTag"
         :explanation="explanationTag"
+        class="col-lg-10 offset-1"
         @update="updateTag"
         @delete="deleteTag"
       >
@@ -21,9 +22,8 @@
       </DynamicTable>
 
       <!-- Pagination part -->
-      <div class="tag-page__pagination-and-modal container-fluid">
+      <div class="tag-page__pagination-and-modal col-lg-10 offset-1">
         <Pagination
-          class="col-lg-12"
           :pageDisplay="page"
           :number-total-of-items="totalItem"
           @page-selected="pageSelected"
@@ -118,9 +118,9 @@ export default {
       explanationTag: `explanation tags`,
       titleForCreationOrUpdate: ``,
       tagHeaders: [
-        { name: 'Name', attribute: 'name' },
-        { name: 'Presentation', attribute: 'presentation' },
-        { name: 'Reprèsentation du tag', attribute: 'representation', slot: true }
+        { name: 'NAME', attribute: 'name' },
+        { name: 'PRESENTATION', attribute: 'presentation' },
+        { name: 'REPRESENTATION DU TAG', attribute: 'representation', slot: true }
       ],
       page: 1,
       totalItem: 0,
@@ -156,7 +156,8 @@ export default {
       axios
         .get(`${import.meta.env.VITE_API_URL}/tag`, {
           params: {
-            page: this.page
+            page: this.page,
+            numberItem: 20
           }
         })
         .then((response) => {

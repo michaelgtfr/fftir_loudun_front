@@ -1,13 +1,13 @@
 <template>
-  <div class="mt-3">
-    <h1 class="text-center mt-3 mb-2">{{ title }}</h1>
-    <p>{{ explanation }}</p>
+  <div class="mt-3 dynamic-table">
+    <h2 class="text-center mt-3 mb-2 p-5">{{ title }}</h2>
+    <p class="dynamic-table__explanation">{{ explanation }}</p>
     <!-- Table part with a list of tag -->
-    <table class="table table-striped table-bordered dynamic-table mb-0">
+    <table class="table table-striped mb-0">
       <thead>
         <tr>
           <td v-for="(header, index) in headers" :key="index" scope="col">{{ header.name }}</td>
-          <td scope="col">Commandes</td>
+          <td scope="col">COMMANDES</td>
         </tr>
       </thead>
       <tbody>

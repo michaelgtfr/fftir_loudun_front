@@ -1,6 +1,9 @@
 @font-face {
-    src: url('@/assets/bases/cursive-sans/CursiveSans-Bold.woff') format("woff"),
-    url("@/assets/bases/cursive-sans/CursiveSans-Bold.woff2") format("woff2"),
-    url("@/assets/bases/cursive-sans/CursiveSans-Bold.ttf") format("trueType");
-    font-family: "cursive-sans-bold";
+  src: url('@/assets/bases/cursive-sans/CursiveSans-Bold.woff') format('woff'),
+    url('@/assets/bases/cursive-sans/CursiveSans-Bold.woff2') format('woff2'),
+    url('@/assets/bases/cursive-sans/CursiveSans-Bold.ttf') format('trueType');
+  font-family: 'cursive-sans-bold';
 }
+
+// Raleway
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
